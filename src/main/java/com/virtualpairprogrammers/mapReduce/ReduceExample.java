@@ -27,7 +27,6 @@ public class ReduceExample {
         Double reduced = rdd.reduce((value1, value2) -> value1 + value2);
         System.out.println(reduced);
 
-
         javaSparkContext.close();
     }
 }

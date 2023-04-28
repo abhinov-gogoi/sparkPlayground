@@ -32,6 +32,8 @@ public class MappingExample {
         Double reduced = sqrtRDD.reduce((v1, v2) -> v1 + v2);
         System.out.println(reduced);
 
+        // how many elements in sqrtRDD
+        System.out.println("COUNT: " + sqrtRDD.count());
 
         javaSparkContext.close();
     }
