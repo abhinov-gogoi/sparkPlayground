@@ -1,5 +1,6 @@
 package com.virtualpairprogrammers.pairRdd;
 
+import com.google.common.collect.Iterables;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
@@ -26,10 +27,17 @@ public class PairRddExampleRefactored {
         SparkConf conf = new SparkConf().setAppName("SparkStartMain").setMaster("local[*]");
         JavaSparkContext javaSparkContext = new JavaSparkContext(conf);
 
+        // reduceByKey
         javaSparkContext.parallelize(inputData)
                 .mapToPair(value -> new Tuple2<String, Long>(value.split(":")[0], 1L))
                 .reduceByKey(Long::sum)
                 .foreach(tuple -> System.out.println(tuple._1 + " has " + tuple._2 + " instances"));
+
+        // groupByKey - TODO :: WARNING. Can lead to severe performance issues
+        javaSparkContext.parallelize(inputData)
+                .mapToPair(value -> new Tuple2<String, Long>(value.split(":")[0], 1L))
+                        .groupByKey().foreach(tuple-> System.out.println(tuple._1 + " has " + Iterables.size(tuple._2) + " instances"));
+
         javaSparkContext.close();
     }
 }
