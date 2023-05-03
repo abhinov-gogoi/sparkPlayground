@@ -15,7 +15,7 @@ import java.util.List;
  * Tuples are a way to store related values together,
  * without having the need to create a separate class for them
  */
-public class TupuleExample {
+public class TupleExample {
     public static void main(String[] args) {
 
         Logger.getLogger("org.apache").setLevel(Level.WARN);
