@@ -49,7 +49,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.virtualpairprogrammers.mapReduce.ReduceExample</mainClass>
+							<mainClass>com.virtualpairprogrammers.rdd.mapReduce.ReduceExample</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
