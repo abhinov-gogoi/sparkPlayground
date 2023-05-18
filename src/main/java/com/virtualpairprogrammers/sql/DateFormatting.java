@@ -11,7 +11,7 @@ import org.apache.spark.sql.types.StructType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemory {
+public class DateFormatting {
     public static void main(String[] args) throws AnalysisException {
 
         Logger.getLogger("org.apache").setLevel(Level.WARN);
@@ -20,9 +20,6 @@ public class InMemory {
                 .appName("ImMemory")
                 .master("local[*]")
                 .getOrCreate();
-
-        // create a dataset manually instead of loading from a file,
-        // just like we created an RDD from a plain ArrayList
 
         // STEP 1 : Create some rows
         List<Row> rows = new ArrayList<Row>();
@@ -42,8 +39,11 @@ public class InMemory {
         // STEP 3: Create the dataset from rows and schema
         Dataset<Row> dataset = spark.createDataFrame(rows, schema);
 
-        dataset.show();
+        // create a temp view of the table
+        dataset.createTempView("logging_table");
 
+        Dataset<Row> results = spark.sql("select level, date_format(datetime, 'MMMM') as month from logging_table");
 
+        results.show();
     }
 }
